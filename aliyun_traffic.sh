@@ -6,7 +6,7 @@ SCRIPT_PATH=$(realpath "$0")
 # 保存流量数据的文件
 TRAFFIC_FILE="/var/tmp/network_traffic.dat"
 CURRENT_MONTH=$(date +"%Y-%m")
-SHUTDOWN_THRESHOLD=$((9 * 1024 * 1024 * 1024 + 512 * 1024 * 1024))  # 9.5GB 转换为字节的整数表示
+SHUTDOWN_THRESHOLD=$((199 * 1024 * 1024 * 1024 + 512 * 1024 * 1024))  # 199.5GB 转换为字节的整数表示
 
 # 自动检测活跃的网络接口（排除 lo 环回接口）
 INTERFACES=$(ls /sys/class/net | grep -v lo)
@@ -44,9 +44,9 @@ total_in=$((last_total_in + current_total_in))
 total_out=$((last_total_out + current_total_out))
 total_bytes=$((total_in + total_out))
 
-# 检查是否达到9.5GB的阈值
+# 检查是否达到199.5GB的阈值
 if [ "$total_bytes" -ge "$SHUTDOWN_THRESHOLD" ]; then
-    echo "总流量已达到 9.5GB，系统即将关机..."
+    echo "总流量已达到 199.5GB，系统即将关机..."
     sudo shutdown -h now
 fi
 
